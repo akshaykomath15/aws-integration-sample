@@ -11,7 +11,7 @@ variables:
 steps:
 - task: AWSCLI@1
   inputs:
-    awsCredentials: '<your-aws-service-connection-name>'
+    awsCredentials: 'aws-eks-connection'  # Replace with your actual AWS service connection name
     regionName: '$(AWS_REGION)'
     command: 'eks update-kubeconfig --name $(CLUSTER_NAME) --region $(AWS_REGION)'
 
