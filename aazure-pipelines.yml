@@ -1,0 +1,20 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  AWS_REGION: 'us-east-1'
+  CLUSTER_NAME: 'sample-eks'
+
+steps:
+- task: AWSCLI@1
+  inputs:
+    awsCredentials: '<your-aws-service-connection-name>'
+    regionName: '$(AWS_REGION)'
+    command: 'eks update-kubeconfig --name $(CLUSTER_NAME) --region $(AWS_REGION)'
+
+- script: |
+    kubectl apply -f deployment.yaml
+  displayName: 'Deploy NGINX to EKS'
